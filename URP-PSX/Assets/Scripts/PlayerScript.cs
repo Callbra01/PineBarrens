@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 10f;
     public float strafeSpeed = 7f;
-
+    public bool canMove = true;
     //Vector3 to store calculations
     private Vector3 movement;
 
@@ -46,7 +46,8 @@ public class PlayerScript : MonoBehaviour
 
         movement = (transform.forward * v * moveSpeed) + (transform.right * h * strafeSpeed);
 
-        rb.MovePosition(transform.position + movement * Time.deltaTime);
+        if (canMove)
+            rb.MovePosition(transform.position + movement * Time.deltaTime);
     }
 
     void Jump()

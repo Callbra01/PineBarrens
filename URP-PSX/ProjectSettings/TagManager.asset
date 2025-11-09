@@ -8,6 +8,7 @@ TagManager:
   - BlackOrb
   - WhiteOrb
   - LevelExit
+  - HandOverlay
   layers:
   - Default
   - TransparentFX

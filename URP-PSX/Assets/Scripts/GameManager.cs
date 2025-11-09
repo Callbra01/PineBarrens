@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    public static GameManager instance { get; private set; }
+
     public GameObject whiteOrb;
     public GameObject blackOrb;
     public GameObject whiteOrbPivotTransform;
@@ -20,6 +23,8 @@ public class GameManager : MonoBehaviour
     public GameObject leftDoorPivot;
     public GameObject rightDoorPivot;
 
+    public GameObject canvasHand;
+
     public float rotateSpeed;
 
     public int whitePuzzlesCompleted = 0;
@@ -28,9 +33,25 @@ public class GameManager : MonoBehaviour
     bool isWhiteOrbPlaced = false;
     bool isBlackOrbPlaced = false;
 
+    public bool isHandVisible = true;
+
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
+        canvasHand = GameObject.FindGameObjectWithTag("HandOverlay");
+
         whiteOrb.transform.parent = whiteOrbPivotTransform.transform;
         blackOrb.transform.parent = blackOrbPivotTransform.transform;
 
@@ -42,6 +63,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        canvasHand.SetActive(isHandVisible);
+
         HandleLights();
         HandleOrbs();
         HandleRibbon();
