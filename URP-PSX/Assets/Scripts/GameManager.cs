@@ -8,8 +8,17 @@ public class GameManager : MonoBehaviour
     public GameObject blackOrb;
     public GameObject whiteOrbPivotTransform;
     public GameObject blackOrbPivotTransform;
+    public Light[] whiteLights = new Light[2];
+    public Light[] blackLights = new Light[2];
 
     public GameObject ribbonObject;
+    public GameObject doorPiece;
+
+
+    public GameObject leftDoor;
+    public GameObject rightDoor;
+    public GameObject leftDoorPivot;
+    public GameObject rightDoorPivot;
 
     public float rotateSpeed;
 
@@ -19,19 +28,65 @@ public class GameManager : MonoBehaviour
     bool isWhiteOrbPlaced = false;
     bool isBlackOrbPlaced = false;
 
+
     void Start()
     {
-
         whiteOrb.transform.parent = whiteOrbPivotTransform.transform;
         blackOrb.transform.parent = blackOrbPivotTransform.transform;
+
+        leftDoor.transform.parent = leftDoorPivot.transform;
+        rightDoor.transform.parent = rightDoorPivot.transform;
+
+        doorPiece.GetComponent<Rigidbody>().useGravity = false;
     }
 
     void Update()
     {
-
+        HandleLights();
         HandleOrbs();
         HandleRibbon();
+        HandleDoorPiece();
     }
+
+    void HandleDoorPiece()
+    {
+        if (doorPiece.transform.position.y <= -3.6f)
+        {
+            OpenDoors();
+        }
+    }
+
+    void OpenDoors()
+    {
+        if (leftDoorPivot.transform.rotation.y >= -0.626)
+            leftDoorPivot.transform.Rotate(new Vector3(0, -15f * Time.deltaTime, 0));
+
+        if (rightDoorPivot.transform.rotation.y <= 0.626)
+            rightDoorPivot.transform.Rotate(new Vector3(0, 15f * Time.deltaTime, 0));
+    }
+
+    void HandleLights()
+    {
+        if (whitePuzzlesCompleted == 1)
+        {
+            whiteLights[0].enabled = true;
+        }
+        else if (whitePuzzlesCompleted == 2)
+        {
+            whiteLights[1].enabled = true;
+        }
+
+        if (blackPuzzlesCompleted == 1)
+        {
+            blackLights[0].enabled = true;
+        }
+        else if (blackPuzzlesCompleted == 2)
+        {
+            blackLights[1].enabled = true;
+        }
+
+    }
+
 
     void HandleOrbs()
     {
@@ -54,11 +109,18 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (orb.gameObject.tag == "WhiteOrb")
-                isWhiteOrbPlaced = true;
+            orb.transform.position -= new Vector3(0, 0, 1 * Time.deltaTime);
 
-            if (orb.gameObject.tag == "BlackOrb")
-                isBlackOrbPlaced = true;
+            if (orb.transform.position.z <= -38)
+            {
+                if (orb.gameObject.tag == "WhiteOrb")
+                    isWhiteOrbPlaced = true;
+
+                if (orb.gameObject.tag == "BlackOrb")
+                    isBlackOrbPlaced = true;
+
+                orb.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -68,7 +130,11 @@ public class GameManager : MonoBehaviour
         {
             if (ribbonObject.transform.rotation.z > 0)
             {
-                ribbonObject.transform.Rotate(new Vector3(0, 0, -rotateSpeed * Time.deltaTime));
+                ribbonObject.transform.Rotate(new Vector3(0, 0, -rotateSpeed * 2f * Time.deltaTime));
+            }
+            else
+            {
+                doorPiece.GetComponent<Rigidbody>().useGravity = true;
             }
         }
     }
