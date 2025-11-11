@@ -9,6 +9,7 @@ TagManager:
   - WhiteOrb
   - LevelExit
   - HandOverlay
+  - WhiteLightTrigger
   layers:
   - Default
   - TransparentFX

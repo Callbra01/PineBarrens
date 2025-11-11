@@ -22,6 +22,8 @@ public class PlayerScript : MonoBehaviour
     public bool isGrounded;
     public LayerMask groundLayer;
 
+    public AudioSource[] audioSources;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -71,11 +73,26 @@ public class PlayerScript : MonoBehaviour
         return false;
     }
 
+    void PlaySource(int sourceIndex)
+    {
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            audioSources[i].Stop();
+        }
+
+        audioSources[sourceIndex].Play();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "LevelExit")
         {
             SceneManager.LoadScene("TestExit");
+        }
+
+        if (other.gameObject.tag == "WhiteLightTrigger")
+        {
+            PlaySource(1);
         }
     }
 }
