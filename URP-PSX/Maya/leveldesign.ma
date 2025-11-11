@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
 //Name: leveldesign.ma
-//Last modified: Tue, Nov 11, 2025 10:02:12 AM
+//Last modified: Tue, Nov 11, 2025 03:26:28 PM
 //Codeset: 1252
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,17 +11,17 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Windows 10 Home v2009 (Build: 19045)";
-fileInfo "UUID" "E947F410-4187-4D40-BA5B-D8909B5F1326";
+fileInfo "UUID" "EBB7E713-4BE8-6989-A2F8-85A430C4DF43";
 createNode transform -s -n "persp";
 	rename -uid "27502803-4A0A-B86A-6AC4-DCADB57FB3C5";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -399.84082598396452 300.78582796443436 71.814748116614311 ;
-	setAttr ".r" -type "double3" -38.138352755922263 -1517.3999999967261 -1.4580120201243576e-14 ;
+	setAttr ".t" -type "double3" 1.6464249103788877 16.876064720563186 29.894261482719138 ;
+	setAttr ".r" -type "double3" -39.338352755868641 -1392.599999996668 4.6988736845774118e-15 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "C872052F-44D0-BE36-C6DB-B4A57E33CA73";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 467.1812748378992;
+	setAttr ".coi" 14.647984842383696;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -6962,7 +6962,7 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 	setAttr ".gtag[5].gtagcmp" -type "componentList" 18 "f[4:7]" "f[18:35]" "f[44:55]" "f[64:81]" "f[94:98]" "f[104:108]" "f[112:123]" "f[231:235]" "f[252:256]" "f[259:265]" "f[282:288]" "f[290:329]" "f[656:713]" "f[722:734]" "f[762:767]" "f[780:789]" "f[798:810]" "f[820:825]";
 	setAttr ".pv" -type "double2" 0.375 0 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr -s 1943 ".uvst[0].uvsp";
+	setAttr -s 1979 ".uvst[0].uvsp";
 	setAttr ".uvst[0].uvsp[0:249]" -type "float2" 0.375 0 0.4375 0 0.5 0 0.5625
 		 0 0.625 0 0.375 0.25 0.4375 0.25 0.5 0.25 0.5625 0.25 0.625 0.25 0.375 0.5 0.4375
 		 0.5 0.5 0.5 0.5625 0.5 0.625 0.5 0.375 0.75 0.4375 0.75 0.5 0.75 0.5625 0.75 0.625
@@ -7182,7 +7182,7 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 		 0 0.625 0 0.625 0 0.625 0 0.625 0.25 0.625 0.25 0.625 0 0.625 0 0.625 0.25 0.625
 		 0.25 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.375 0.25 0.375 0 0.375 0 0.375 0.25
 		 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0;
-	setAttr ".uvst[0].uvsp[1750:1942]" 0.625 0 0.625 0 0.375 0.25 0.375 0.25 0.375
+	setAttr ".uvst[0].uvsp[1750:1978]" 0.625 0 0.625 0 0.375 0.25 0.375 0.25 0.375
 		 0.25 0.375 0.25 0.625 0 0.625 0 0.625 0 0.625 0 0.375 0 0.625 0.25 0.375 0 0.625
 		 0 0.375 0.25 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625
 		 0 0.625 0 0.625 0 0.625 0.25 0.625 0.25 0.625 0.25 0.375 0 0.375 0 0.375 0.25 0.375
@@ -7203,12 +7203,15 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 		 0.625 0 0.625 0 0.375 0 0.375 0 0.375 0.25 0.375 0.25 0.625 0 0.625 0 0.625 0 0.625
 		 0 0.375 0.25 0.375 0 0.375 0 0.375 0.25 0.625 0 0.625 0 0.625 0 0.625 0 0.375 0.25
 		 0.375 0 0.375 0 0.375 0.25 0.625 0 0.375 0.25 0.625 0 0.625 0 0.375 0.25 0.375 0
-		 0.375 0 0.375 0.25;
+		 0.375 0 0.375 0.25 0.625 0 0.375 0.25 0.375 0 0.375 0 0.375 0.25 0.625 0 0.625 0
+		 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625 0 0.625
+		 0 0.625 0 0.625 0 0.625 0 0.375 0.25 0.375 0.25 0.375 0.25 0.375 0.25 0.375 0 0.375
+		 0 0.375 0 0.375 0 0.375 0 0.375 0 0.625 0 0.625 0 0.625 0 0.625 0 0.375 0.25;
 	setAttr ".cuvs" -type "string" "map1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 5 ".pt";
+	setAttr -s 4 ".pt";
 	setAttr ".pt[1134]" -type "float3" 2.0861626e-07 5.9604645e-08 2.9802322e-08 ;
 	setAttr ".pt[1138]" -type "float3" 2.0861626e-07 5.9604645e-08 2.9802322e-08 ;
 	setAttr ".pt[1142]" -type "float3" 2.0861626e-07 5.9604645e-08 2.9802322e-08 ;
@@ -9854,9 +9857,9 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 		f 4 -1931 1963 1968 -1968
 		mu 0 4 1659 1655 1677 1681
 		f 4 1931 1969 -1971 -1966
-		mu 0 4 1658 1649 1671 1680
+		mu 0 4 1658 1649 1943 1680
 		f 4 -1933 1967 1971 -1970
-		mu 0 4 1649 1659 1681 1671
+		mu 0 4 1649 1659 1681 1943
 		f 4 1936 1975 2117 -1973
 		mu 0 4 1660 1661 1777 1761
 		f 4 1939 1980 2116 -1976
@@ -9885,9 +9888,9 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 		f 4 -1969 1999 2105 -2005
 		mu 0 4 1681 1677 1765 1766
 		f 4 1970 2005 2107 -2002
-		mu 0 4 1680 1671 1767 1768
+		mu 0 4 1680 1943 1767 1768
 		f 4 -1972 2004 2106 -2006
-		mu 0 4 1671 1681 1766 1767
+		mu 0 4 1943 1681 1766 1767
 		f 4 -1975 2008 2010 -2010
 		mu 0 4 1682 1683 1705 1704
 		f 4 1976 2011 -2013 -2009
@@ -10165,25 +10168,25 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 		f 4 -2214 2239 2253 -2250
 		mu 0 4 1836 1829 1864 1863
 		f 4 2230 2254 -2256 -2240
-		mu 0 4 1837 1838 1866 1865
+		mu 0 4 1944 1945 1946 1947
 		f 4 -2303 2311 2313 -2315
 		mu 0 4 1898 1895 1896 1897
 		f 4 -2229 2241 2258 -2257
-		mu 0 4 1841 1842 1869 1868
+		mu 0 4 1948 1949 1950 1951
 		f 4 -2217 2259 2261 -2261
-		mu 0 4 1843 1844 1871 1870
+		mu 0 4 1952 1953 1954 1955
 		f 4 2218 2262 -2264 -2260
-		mu 0 4 1845 1841 1868 1872
+		mu 0 4 1956 1957 1958 1959
 		f 4 -2222 2260 2268 -2268
-		mu 0 4 1844 1846 1873 1871
+		mu 0 4 1960 1961 1962 1963
 		f 4 2326 2327 -2329 -2317
 		mu 0 4 1905 1906 1907 1908
 		f 4 -2226 2267 2272 -2272
-		mu 0 4 1829 1850 1874 1864
+		mu 0 4 1964 1965 1966 1967
 		f 4 2369 2371 -2374 -2328
 		mu 0 4 1931 1932 1933 1934
 		f 4 -2228 2271 2275 -2274
-		mu 0 4 1849 1830 1857 1875
+		mu 0 4 1968 1969 1970 1971
 		f 4 2234 2276 -2278 -2263
 		mu 0 4 1839 1854 1876 1867
 		f 4 2308 2316 -2319 -2320
@@ -10217,21 +10220,21 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 		f 4 -2236 2293 2309 -2308
 		mu 0 4 1854 1851 1891 1894
 		f 4 2256 2310 -2312 -2300
-		mu 0 4 1839 1867 1896 1895
+		mu 0 4 1972 1973 1896 1895
 		f 4 2257 2312 -2314 -2311
-		mu 0 4 1867 1866 1897 1896
+		mu 0 4 1973 1946 1897 1896
 		f 4 -2255 2301 2314 -2313
-		mu 0 4 1866 1838 1898 1897
+		mu 0 4 1946 1945 1898 1897
 		f 5 -2279 2317 2318 -2375 -2316
 		mu 0 5 1877 1876 1900 1899 1936
 		f 4 -2277 2307 2319 -2318
 		mu 0 4 1876 1854 1894 1900
 		f 4 2223 2320 -2322 -2233
-		mu 0 4 1846 1845 1902 1901
+		mu 0 4 1974 1975 1902 1901
 		f 4 -2270 2279 2323 -2323
-		mu 0 4 1872 1873 1904 1903
+		mu 0 4 1976 1977 1904 1903
 		f 4 -2265 2232 2324 -2280
-		mu 0 4 1873 1846 1901 1904
+		mu 0 4 1977 1974 1901 1904
 		f 4 2321 2325 -2327 -2306
 		mu 0 4 1901 1902 1906 1905
 		f 4 -2324 2315 2375 -2358
@@ -10249,9 +10252,9 @@ createNode mesh -n "Main_Door_HallwayShape" -p "Main_Door_Hallway";
 		f 4 -2223 2329 2340 -2321
 		mu 0 4 1844 1815 1909 1914
 		f 4 2273 2341 -2343 -2338
-		mu 0 4 1849 1875 1916 1915
+		mu 0 4 1968 1971 1916 1915
 		f 4 -2275 2322 2343 -2342
-		mu 0 4 1875 1874 1917 1916
+		mu 0 4 1971 1978 1917 1916
 		f 4 -2332 2344 2346 -2346
 		mu 0 4 1912 1909 1920 1919
 		f 4 2333 2347 -2349 -2345
@@ -285559,22 +285562,22 @@ createNode mesh -n "RugShape" -p "Rug";
 	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "DB2C17E0-4320-2897-9112-A48987D34617";
+	rename -uid "01304620-4E6D-15D4-55D9-2586A7E904C6";
 	setAttr -s 5 ".lnk";
 	setAttr -s 5 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "56285669-4097-7FEF-8D89-318F858C2294";
+	rename -uid "6AC831FE-431F-FDB6-F515-048EE14ED370";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "33D7717B-4EA4-954F-375F-11B49B48D478";
+	rename -uid "3E1DF2C5-476B-5121-190B-2BACEB1CF1C8";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "2FF516AE-4B26-E82B-711C-E9ABD489D7AB";
+	rename -uid "D292B69F-4B16-9C1D-9476-F387C6C5291F";
 	setAttr ".cdl" 1;
 	setAttr -s 2 ".dli[1]"  1;
 createNode displayLayer -n "defaultLayer";
 	rename -uid "FAD78C3D-4659-8C1C-DDAE-FE95AA66C257";
 	setAttr ".ufem" -type "stringArray" 0  ;
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "CC9F0DFF-4579-E2BD-3BBC-A8A9AF61E292";
+	rename -uid "494957D1-4F5C-C3F2-B20C-289259F9C5B6";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "E5A44E10-422C-E2E9-5F4F-60B36B37BEDE";
 	setAttr ".g" yes;
@@ -285758,8 +285761,6 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 connectAttr ":defaultColorMgtGlobals.cme" "imagePlaneShape1.cme";
 connectAttr ":defaultColorMgtGlobals.cfe" "imagePlaneShape1.cmcf";
 connectAttr ":defaultColorMgtGlobals.cfp" "imagePlaneShape1.cmcp";
