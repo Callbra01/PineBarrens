@@ -24,6 +24,8 @@ public class PlayerScript : MonoBehaviour
 
     public AudioSource[] audioSources;
 
+    int shoesCollected = 0;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -105,6 +107,31 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.tag == "WhiteLightTrigger")
         {
             PlaySource(1);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Switch")
+        {
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+            {
+                Switch switchComp = other.GetComponent<Switch>();
+                switchComp.isEnabled = !switchComp.isEnabled;
+            }
+        }
+
+        if (other.gameObject.tag == "Shoe")
+        {
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+            {
+                if (other.GetComponent<Coffin>().isSolved)
+                {
+                    Debug.Log("COFFIN");
+                    shoesCollected++;
+                    other.gameObject.SetActive(false);
+                }
+            }
         }
     }
 }

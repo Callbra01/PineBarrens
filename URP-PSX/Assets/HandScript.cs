@@ -45,8 +45,8 @@ public class HandScript : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && !isPointing && !isFlipping)
         {
-            currentFrame = 0;
-            isFlipping = true;
+            //currentFrame = 0;
+            //isFlipping = true;
         }
 
         if (isPointing)

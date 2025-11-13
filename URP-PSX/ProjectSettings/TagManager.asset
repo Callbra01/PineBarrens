@@ -10,6 +10,8 @@ TagManager:
   - LevelExit
   - HandOverlay
   - WhiteLightTrigger
+  - Switch
+  - Shoe
   layers:
   - Default
   - TransparentFX

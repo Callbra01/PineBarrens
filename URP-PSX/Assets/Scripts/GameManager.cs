@@ -33,6 +33,14 @@ public class GameManager : MonoBehaviour
 
     public bool isHandVisible = true;
 
+    public GameObject mainDoorBarrier;
+
+    public Switch[] switches;
+    public GameObject switchLight;
+
+    public Coffin switchCoffin;
+
+
 
     private void Awake()
     {
@@ -57,16 +65,28 @@ public class GameManager : MonoBehaviour
         rightDoor.transform.parent = rightDoorPivot.transform;
 
         doorPiece.GetComponent<Rigidbody>().useGravity = false;
+        mainDoorBarrier.SetActive(true);
+
+        switchLight.SetActive(false);
     }
 
     void Update()
     {
         canvasHand.SetActive(isHandVisible);
-
+        HandleSwitches();
         HandleLights();
         HandleOrbs();
         HandleRibbon();
         HandleDoorPiece();
+    }
+
+    void HandleSwitches()
+    {
+        if (switches[0].isEnabled && switches[1].isEnabled && !switches[2].isEnabled && !switchLight.activeSelf)
+        {
+            switchLight.SetActive(true);
+            switchCoffin.isSolved = true;
+        }
     }
 
     void HandleDoorPiece()
@@ -79,6 +99,9 @@ public class GameManager : MonoBehaviour
 
     void OpenDoors()
     {
+        if (mainDoorBarrier.activeSelf)
+            mainDoorBarrier.SetActive(false);
+
         if (leftDoorPivot.transform.rotation.y >= -0.626)
             leftDoorPivot.transform.Rotate(new Vector3(0, -15f * Time.deltaTime, 0));
 
