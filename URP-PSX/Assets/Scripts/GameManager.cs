@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager instance { get; private set; }
 
     public GameObject whiteOrb;
@@ -16,7 +15,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject ribbonObject;
     public GameObject doorPiece;
-
 
     public GameObject leftDoor;
     public GameObject rightDoor;
@@ -107,9 +105,7 @@ public class GameManager : MonoBehaviour
         {
             blackLights[1].enabled = true;
         }
-
     }
-
 
     void HandleOrbs()
     {
