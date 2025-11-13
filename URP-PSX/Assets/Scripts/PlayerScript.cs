@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        /*
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -49,14 +50,25 @@ public class PlayerScript : MonoBehaviour
         movement = (transform.forward * v * moveSpeed) + (transform.right * h * strafeSpeed);
 
         if (canMove)
-            rb.MovePosition(transform.position + movement * Time.deltaTime);
+            rb.velocity += movement * Time.deltaTime;
+        //rb.MovePosition(transform.position + movement * Time.deltaTime);
+        */
+
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Calculate movement direction based on input and camera/player orientation
+        Vector3 movement = transform.right * moveHorizontal + transform.forward * moveVertical;
+
+        // Apply velocity, maintaining current y-velocity for jumping/falling
+        rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, movement.z * moveSpeed);
     }
 
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            //rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
     }
 
