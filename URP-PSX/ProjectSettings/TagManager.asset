@@ -12,6 +12,8 @@ TagManager:
   - WhiteLightTrigger
   - Switch
   - Shoe
+  - Looper
+  - Legs
   layers:
   - Default
   - TransparentFX

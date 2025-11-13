@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
+    public static PlayerScript instance { get; private set; }
+
     //Movement variables
     [Header("Movement")]
     public float moveSpeed = 10f;
@@ -24,7 +26,19 @@ public class PlayerScript : MonoBehaviour
 
     public AudioSource[] audioSources;
 
-    int shoesCollected = 0;
+    public int shoesCollected = 0;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
@@ -108,6 +122,13 @@ public class PlayerScript : MonoBehaviour
         {
             PlaySource(1);
         }
+
+        if (other.gameObject.tag == "Looper")
+        {
+            //transform.rotation = new Quaternion(transform.rotation.x, -90f, transform.rotation.z, transform.rotation.w);
+            transform.Rotate(new Vector3(0f, -90f, 0));
+            transform.position = GameManager.instance.loopSpawn.transform.position;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -129,8 +150,28 @@ public class PlayerScript : MonoBehaviour
                 {
                     Debug.Log("COFFIN");
                     shoesCollected++;
+                    GameManager.instance.isHallwayTriggerActive = false;
                     other.gameObject.SetActive(false);
                 }
+            }
+        }
+
+        if (other.gameObject.tag == "Legs")
+        {
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+            {
+                Legs legComp = other.GetComponent<Legs>();
+
+                if (shoesCollected == 1 && !legComp.hasLeftShoe)
+                {
+                    legComp.hasLeftShoe = true;
+                }
+
+                if (shoesCollected == 2 && !legComp.hasRightShoe)
+                {
+                    legComp.hasRightShoe = true;
+                }
+
             }
         }
     }

@@ -26,5 +26,11 @@ public class Legs : MonoBehaviour
         rightShoe.SetActive(hasRightShoe);
 
         puzzleComplete = hasLeftShoe && hasRightShoe;
+
+        if (puzzleComplete && GameManager.instance.whitePuzzlesCompleted != 2)
+        {
+            GameManager.instance.whitePuzzlesCompleted = 2;
+        }
+        
     }
 }

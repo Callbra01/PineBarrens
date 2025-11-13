@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
 
     public Coffin switchCoffin;
 
-
+    public GameObject loopSpawn;
+    public GameObject loopTrigger;
+    public bool isHallwayTriggerActive = true;
 
     private void Awake()
     {
@@ -78,14 +80,21 @@ public class GameManager : MonoBehaviour
         HandleOrbs();
         HandleRibbon();
         HandleDoorPiece();
+        HandleHallway();
+    }
+
+    void HandleHallway()
+    {
+        loopTrigger.SetActive(isHallwayTriggerActive);
     }
 
     void HandleSwitches()
     {
         if (switches[0].isEnabled && switches[1].isEnabled && !switches[2].isEnabled && !switchLight.activeSelf)
         {
-            switchLight.SetActive(true);
             switchCoffin.isSolved = true;
+            whitePuzzlesCompleted++;
+            switchLight.SetActive(true);
         }
     }
 
