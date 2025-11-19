@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//leg script
 public class Legs : MonoBehaviour
 {
     public GameObject leftShoe;
