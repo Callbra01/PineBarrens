@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     public GameObject loopTrigger;
     public bool isHallwayTriggerActive = true;
 
+    public SignScript stopSign;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -86,6 +88,7 @@ public class GameManager : MonoBehaviour
     void HandleHallway()
     {
         loopTrigger.SetActive(isHallwayTriggerActive);
+        stopSign.showGo = !isHallwayTriggerActive;
     }
 
     void HandleSwitches()

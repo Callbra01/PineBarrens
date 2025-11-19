@@ -28,6 +28,13 @@ public class PlayerScript : MonoBehaviour
 
     public int shoesCollected = 0;
 
+    bool _inSwitchTrigger = false;
+    bool _inShoeTrigger = false;
+    bool _inLegsTrigger = false;
+
+    public GameObject currentInteractable;
+
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -53,6 +60,10 @@ public class PlayerScript : MonoBehaviour
         {
             Jump();
         }
+
+        HandleInteractable();
+
+        Debug.Log(currentInteractable);
     }
 
     private void FixedUpdate()
@@ -111,6 +122,18 @@ public class PlayerScript : MonoBehaviour
         audioSources[sourceIndex].Play();
     }
 
+    private void HandleInteractable()
+    {
+        if (currentInteractable == null)
+        {
+            return;
+        }
+
+        TriggerSwitch();
+        TriggerShoe();
+        TriggerLegs();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "LevelExit")
@@ -129,50 +152,101 @@ public class PlayerScript : MonoBehaviour
             transform.Rotate(new Vector3(0f, -90f, 0));
             transform.position = GameManager.instance.loopSpawn.transform.position;
         }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
         if (other.gameObject.tag == "Switch")
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
-            {
-                Switch switchComp = other.GetComponent<Switch>();
-                switchComp.isEnabled = !switchComp.isEnabled;
-            }
+            _inSwitchTrigger = true;
+            currentInteractable = other.gameObject;
         }
 
         if (other.gameObject.tag == "Shoe")
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
-            {
-                if (other.GetComponent<Coffin>().isSolved)
-                {
-                    Debug.Log("COFFIN");
-                    shoesCollected++;
-                    GameManager.instance.isHallwayTriggerActive = false;
-                    other.gameObject.SetActive(false);
-                }
-            }
+            _inShoeTrigger = true;
+            currentInteractable = other.gameObject;
         }
 
         if (other.gameObject.tag == "Legs")
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+            _inLegsTrigger = true;
+            currentInteractable = other.gameObject;
+        }
+
+    }
+
+
+    void TriggerSwitch()
+    {
+        if (!_inSwitchTrigger)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+        {
+            Switch switchComp = currentInteractable.GetComponent<Switch>();
+            switchComp.isEnabled = !switchComp.isEnabled;
+        }
+    }
+
+    void TriggerShoe()
+    {
+        if (!_inShoeTrigger)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+        {
+            if (currentInteractable.GetComponent<Coffin>().isSolved)
             {
-                Legs legComp = other.GetComponent<Legs>();
-
-                if (shoesCollected == 1 && !legComp.hasLeftShoe)
-                {
-                    legComp.hasLeftShoe = true;
-                }
-
-                if (shoesCollected == 2 && !legComp.hasRightShoe)
-                {
-                    legComp.hasRightShoe = true;
-                }
-
+                shoesCollected++;
+                GameManager.instance.isHallwayTriggerActive = false;
+                currentInteractable.gameObject.SetActive(false);
             }
+        }
+    }
+
+    void TriggerLegs()
+    {
+        if (!_inLegsTrigger)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+        {
+            Legs legComp = currentInteractable.GetComponent<Legs>();
+
+            if (shoesCollected == 1 && !legComp.hasLeftShoe)
+            {
+                legComp.hasLeftShoe = true;
+            }
+
+            if (shoesCollected == 2 && !legComp.hasRightShoe)
+            {
+                legComp.hasRightShoe = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Switch")
+        {
+            _inSwitchTrigger = false;
+            currentInteractable = null;
+        }
+
+        if (other.gameObject.tag == "Shoe")
+        {
+            _inShoeTrigger = false;
+            currentInteractable = null;
+        }
+
+        if (other.gameObject.tag == "Legs")
+        {
+            _inLegsTrigger = false;
+            currentInteractable = null;
         }
     }
 }
