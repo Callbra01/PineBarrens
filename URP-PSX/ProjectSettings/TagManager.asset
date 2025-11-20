@@ -14,6 +14,8 @@ TagManager:
   - Shoe
   - Looper
   - Legs
+  - Dove
+  - DoveIcon
   layers:
   - Default
   - TransparentFX

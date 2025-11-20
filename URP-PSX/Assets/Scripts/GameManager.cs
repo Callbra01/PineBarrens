@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,19 +36,40 @@ public class GameManager : MonoBehaviour
 
     public GameObject mainDoorBarrier;
 
+    [Header("Coffin Switches")]
     public Switch[] switches;
     public GameObject switchLight;
 
     public Coffin switchCoffin;
 
+    [Header("Hallway")]
     public GameObject loopSpawn;
     public GameObject loopTrigger;
     public bool isHallwayTriggerActive = true;
 
+    [Header("Stop Sign")]
     public SignScript stopSign;
+
+    [Header("Cameras")]
+    public CinemachineVirtualCamera doorCam;
+    public CinemachineVirtualCamera WhiteCam;
+    public CinemachineVirtualCamera BlackCam;
+
+    private CinemachineVirtualCamera currentCamera;
+
+    [Header("Dove")]
+    public GameObject doveIcon;
+    public DoveScript dove;
+
+    float cameraTimer = 0f;
+    public float camShotLength = 5f;
+    bool isCameraActive = false;
+    int shotsPlayed = 0;
+    public bool isDoveIconActive = false;
 
     private void Awake()
     {
+        doveIcon.SetActive(false);
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -70,12 +92,12 @@ public class GameManager : MonoBehaviour
 
         doorPiece.GetComponent<Rigidbody>().useGravity = false;
         mainDoorBarrier.SetActive(true);
-
         switchLight.SetActive(false);
     }
 
     void Update()
     {
+        HandleCamera(camShotLength);
         canvasHand.SetActive(isHandVisible);
         HandleSwitches();
         HandleLights();
@@ -83,6 +105,54 @@ public class GameManager : MonoBehaviour
         HandleRibbon();
         HandleDoorPiece();
         HandleHallway();
+        HandleDove();
+
+    }
+
+    void HandleDove()
+    {
+        doveIcon.SetActive(isDoveIconActive);
+        if (whitePuzzlesCompleted == 2)
+        {
+            if (!dove.isActive)
+                dove.isActive = true;
+        }
+
+        if (doveIcon.activeSelf)
+        {
+            blackPuzzlesCompleted = 2;
+            currentCamera = doorCam;
+            camShotLength = 6f;
+
+            if (shotsPlayed == 2)
+            {
+                isCameraActive = true;
+            }
+        }
+    }
+
+    void HandleCamera(float timerLength)
+    {
+        if (!isCameraActive)
+        {
+            cameraTimer = 0f;
+            isHandVisible = true;
+            return;
+        }
+
+        isHandVisible = false;
+
+        if (currentCamera.m_Priority != 55)
+            currentCamera.m_Priority = 55;
+
+        cameraTimer += Time.deltaTime;
+
+        if (cameraTimer >= timerLength)
+        {
+            currentCamera.m_Priority = 0;
+            shotsPlayed++;
+            isCameraActive = false;
+        }
     }
 
     void HandleHallway()
@@ -126,10 +196,20 @@ public class GameManager : MonoBehaviour
         if (whitePuzzlesCompleted == 1)
         {
             whiteLights[0].enabled = true;
+            currentCamera = WhiteCam;
+            camShotLength = 2f;
+
+            if (shotsPlayed == 0)
+                isCameraActive = true;
         }
         else if (whitePuzzlesCompleted == 2)
         {
             whiteLights[1].enabled = true;
+            currentCamera = doorCam;
+            camShotLength = 6f;
+
+            if (shotsPlayed == 1)
+                isCameraActive = true;
         }
 
         if (blackPuzzlesCompleted == 1)

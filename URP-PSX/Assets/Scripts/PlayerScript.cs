@@ -31,8 +31,12 @@ public class PlayerScript : MonoBehaviour
     bool _inSwitchTrigger = false;
     bool _inShoeTrigger = false;
     bool _inLegsTrigger = false;
+    public bool _inDoveTrigger = false;
 
     public GameObject currentInteractable;
+
+    public GameObject doveCollectable;
+    public bool doveCollected = false;
 
 
     private void Awake()
@@ -61,9 +65,14 @@ public class PlayerScript : MonoBehaviour
             Jump();
         }
 
-        HandleInteractable();
+        Debug.Log(_inDoveTrigger);
 
-        Debug.Log(currentInteractable);
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //GameManager.instance.isDoveIconActive = true;
+        }
+
+        HandleInteractable();
     }
 
     private void FixedUpdate()
@@ -124,6 +133,8 @@ public class PlayerScript : MonoBehaviour
 
     private void HandleInteractable()
     {
+        TriggerDoveIcon();
+
         if (currentInteractable == null)
         {
             return;
@@ -132,6 +143,7 @@ public class PlayerScript : MonoBehaviour
         TriggerSwitch();
         TriggerShoe();
         TriggerLegs();
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -171,6 +183,25 @@ public class PlayerScript : MonoBehaviour
             currentInteractable = other.gameObject;
         }
 
+        if (other.gameObject.tag == "Dove")
+        {
+            GameManager.instance.blackPuzzlesCompleted++;
+            doveCollected = true;
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.tag == "DoveIcon")
+        {
+            _inDoveTrigger = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "DoveIcon")
+        {
+            _inDoveTrigger = true;
+        }
     }
 
 
@@ -197,6 +228,11 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
         {
+            if (currentInteractable.GetComponent<Coffin>() == null)
+            {
+                _inShoeTrigger = false;
+            }
+
             if (currentInteractable.GetComponent<Coffin>().isSolved)
             {
                 shoesCollected++;
@@ -222,10 +258,23 @@ public class PlayerScript : MonoBehaviour
                 legComp.hasLeftShoe = true;
             }
 
-            if (shoesCollected == 2 && !legComp.hasRightShoe)
+            if (shoesCollected >= 2 && !legComp.hasRightShoe)
             {
                 legComp.hasRightShoe = true;
             }
+        }
+    }
+
+    void TriggerDoveIcon()
+    {
+        if (!_inDoveTrigger || !doveCollected)
+        {
+            return;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+        {
+            GameManager.instance.isDoveIconActive = true;
         }
     }
 
@@ -247,6 +296,11 @@ public class PlayerScript : MonoBehaviour
         {
             _inLegsTrigger = false;
             currentInteractable = null;
+        }
+
+        if (other.gameObject.tag == "DoveIcon")
+        {
+            _inDoveTrigger = false;
         }
     }
 }
